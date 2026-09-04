@@ -1,7 +1,7 @@
 export const manifest = {
   id: 'torrentio',
   name: 'Torrentio',
-  version: '1.0.0',
+  version: '1.1.0',
   hosts: ['torrentio.strem.fun'],
   updateUrl: 'https://github.com/DOG248/torrentioss',
 }
@@ -15,9 +15,13 @@ export const manifest = {
 // above — so adding a host here is a permission the person installing this
 // plugin has to approve.
 export async function streams(target, api) {
+  // Torrentio only knows IMDb ids. The ss catalog now runs on TMDB, and hands
+  // over the IMDb id when it has one; anything else has no answer here.
+  const imdbId = typeof target.imdbId === 'string' ? target.imdbId : target.id
+  if (!/^tt\d+$/.test(imdbId)) throw new Error(`torrentio needs an IMDb id, got ${target.id}`)
   const id = target.season != null && target.episode != null
-    ? `${target.id}:${target.season}:${target.episode}`
-    : target.id
+    ? `${imdbId}:${target.season}:${target.episode}`
+    : imdbId
   const response = await api.fetch(
     `https://torrentio.strem.fun/stream/${target.type}/${encodeURIComponent(id)}.json`,
   )

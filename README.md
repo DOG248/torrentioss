@@ -14,5 +14,8 @@ https://github.com/DOG248/torrentioss
 A tela de confirmação mostra o que este plugin vai alcançar antes de gravar
 qualquer coisa. Deve dizer `torrentio.strem.fun`, e nada além disso.
 
+Funciona com o catálogo do ss em TMDB: o ss entrega o id do IMDb de cada
+título e episódio, que é o que o Torrentio entende.
+
 Só quem cria a sala precisa do plugin. Quem entra como espectador não precisa
 instalar nada.
